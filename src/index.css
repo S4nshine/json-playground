@@ -1,0 +1,261 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------- Design tokens ---------- */
+:root {
+  --bg: #f4f5f7;
+  --surface: #ffffff;
+  --surface-2: #f7f8fa;
+  --surface-3: #eceef1;
+  --surface-readonly: #fafbfc;
+  --border: #e2e5e9;
+  --border-strong: #cdd2d8;
+  --text: #1a1e23;
+  --text-muted: #555e69;
+  --text-faint: #858e99;
+  --accent: #2563eb;
+  --accent-hover: #1d4fd7;
+  --accent-fg: #ffffff;
+  --accent-soft: rgb(37 99 235 / 0.1);
+  --success: #17803d;
+  --success-soft: rgb(23 128 61 / 0.1);
+  --danger: #c62a32;
+  --danger-soft: rgb(198 42 50 / 0.09);
+  --warning: #9a6200;
+  --warning-soft: rgb(154 98 0 / 0.1);
+  --focus-ring: rgb(37 99 235 / 0.45);
+  --shadow-pop: 0 8px 24px rgb(16 24 40 / 0.12), 0 2px 6px rgb(16 24 40 / 0.06);
+
+  /* Syntax */
+  --syn-key: #0b4fae;
+  --syn-string: #0f7a3a;
+  --syn-number: #b24d00;
+  --syn-bool: #7b3fd0;
+  --syn-null: #7b3fd0;
+  --syn-punct: #5b6470;
+  --syn-keyword: #c0245a;
+  --syn-func: #6a45c9;
+  --syn-variable: #8a5a00;
+  --syn-comment: #8a929c;
+  --syn-selection: rgb(37 99 235 / 0.18);
+  --syn-active-line: rgb(16 24 40 / 0.035);
+  --syn-match: rgb(250 200 50 / 0.35);
+
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #0b0e12;
+  --surface: #13171c;
+  --surface-2: #181d23;
+  --surface-3: #222830;
+  --surface-readonly: #101418;
+  --border: #262c34;
+  --border-strong: #363e48;
+  --text: #e4e8ec;
+  --text-muted: #9ca6b1;
+  --text-faint: #69737f;
+  --accent: #4d8dff;
+  --accent-hover: #6aa0ff;
+  --accent-fg: #ffffff;
+  --accent-soft: rgb(77 141 255 / 0.14);
+  --success: #3fb968;
+  --success-soft: rgb(63 185 104 / 0.13);
+  --danger: #f2555a;
+  --danger-soft: rgb(242 85 90 / 0.13);
+  --warning: #dba22e;
+  --warning-soft: rgb(219 162 46 / 0.13);
+  --focus-ring: rgb(77 141 255 / 0.55);
+  --shadow-pop: 0 10px 30px rgb(0 0 0 / 0.5), 0 2px 8px rgb(0 0 0 / 0.35);
+
+  --syn-key: #7db6ff;
+  --syn-string: #9fd68f;
+  --syn-number: #f2a766;
+  --syn-bool: #c8a2ff;
+  --syn-null: #c8a2ff;
+  --syn-punct: #8b95a1;
+  --syn-keyword: #ff7a9f;
+  --syn-func: #b9a4ff;
+  --syn-variable: #e8bd6a;
+  --syn-comment: #6c7682;
+  --syn-selection: rgb(77 141 255 / 0.28);
+  --syn-active-line: rgb(255 255 255 / 0.035);
+  --syn-match: rgb(250 200 50 / 0.22);
+
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-surface-readonly: var(--surface-readonly);
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+  --color-fg: var(--text);
+  --color-fg-muted: var(--text-muted);
+  --color-fg-faint: var(--text-faint);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-syn-key: var(--syn-key);
+  --color-syn-string: var(--syn-string);
+  --color-syn-number: var(--syn-number);
+  --color-syn-bool: var(--syn-bool);
+  --color-syn-null: var(--syn-null);
+  --color-syn-punct: var(--syn-punct);
+  --shadow-pop: var(--shadow-pop);
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+}
+
+/* ---------- Base ---------- */
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+/* Smooth theme transitions on chrome only (never on editor text). */
+.theme-transition,
+.theme-transition * {
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease !important;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 1px;
+}
+
+::selection {
+  background: var(--syn-selection);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---------- Resizable panel separators ---------- */
+[data-separator] {
+  position: relative;
+  background: var(--border);
+  flex: 0 0 1px;
+  outline: none;
+  transition: background-color 120ms ease;
+}
+[data-separator]::after {
+  content: "";
+  position: absolute;
+  inset: 0 -3px;
+}
+[data-group][aria-orientation="vertical"] > [data-separator]::after,
+[data-separator][aria-orientation="horizontal"]::after {
+  inset: -3px 0;
+}
+[data-separator]:hover,
+[data-separator][data-separator="hover"],
+[data-separator][data-separator="active"],
+[data-separator]:focus-visible {
+  background: var(--accent);
+}
+
+/* ---------- CodeMirror tweaks ---------- */
+.cm-editor {
+  height: 100%;
+}
+.cm-editor .cm-scroller {
+  font-family: var(--font-mono);
+  line-height: 1.55;
+}
+.cm-panels .cm-search {
+  font-family: var(--font-sans);
+  font-size: 12px;
+}
+.cm-panels .cm-search input,
+.cm-panels .cm-search button {
+  font-family: inherit;
+  font-size: 12px;
+}
+.cm-panels .cm-search label {
+  font-size: 12px;
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-pop {
+  animation: pop-in 120ms ease-out;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-toast {
+  animation: toast-in 160ms ease-out;
+}
+
+@keyframes indeterminate {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(300%);
+  }
+}
+.animate-indeterminate {
+  animation: indeterminate 900ms ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  .theme-transition,
+  .theme-transition * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
